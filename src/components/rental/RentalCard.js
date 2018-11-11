@@ -3,10 +3,10 @@ import { Link }from 'react-router-dom'
 
 export default function RentalCard(props) {
   const rental = props.rental
-  const url = `/rentals/${rental.id}`
+  let url = `/rentals/${rental.id}`
   return (
     <div className={props.colNum}>
-    <Link to ={ url }>
+    <Link className='rental-detail-link' to ={ url }>
         <div className='card bwm-card'>
           <img className='card-img-top' src={rental.image} alt=''></img>
           <div className='card-block'>
