@@ -1,9 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import * as actions from '../../actions'
-
-
+import * as actions from 'actions'
 
 class RentalDetail extends React.Component {
     constructor() {
@@ -22,7 +20,6 @@ componentDidMount() {
         const {rental} = this.props
 
         if(rental.id) {
-            console.log(rental)
             return (
                 <div>
                     <h3>{rental.title}</h3>
