@@ -78,14 +78,15 @@ export const fetchRentals = () => {
 
 export const fetchRentalById = (rentalId) => {
 
-    return function(dispatch) {
-        dispatch(fetchRentalByIdInit())
+    return async function(dispatch) {
+        const RentalByInit = await fetchRentalByIdInit()
+        dispatch(RentalByInit)
         // Simulate server call
-        setTimeout(()=> {
+        setTimeout(async ()=> {
 
-        const rental = rentals.find((rental) => rental.id === rentalId)
+        const rental = await rentals.find((rental) => rental.id === rentalId)
         dispatch(fetchRentalByIdSuccess(rental))
-    }, 650)
+    })
 
     }
    

@@ -11,9 +11,9 @@ class RentalDetail extends React.Component {
 		
 		}
 	}
-componentDidMount() {
+async componentDidMount() {
     // Dispatch action
-    const rentalId = this.props.match.params.id
+    const rentalId = await this.props.match.params.id
     this.props.dispatch(actions.fetchRentalById(rentalId))
 }
     render() {

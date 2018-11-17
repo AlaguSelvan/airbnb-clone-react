@@ -6,8 +6,8 @@ import * as actions from 'actions'
 
 class RentalListing extends Component {
 
-	componentDidMount() {
-		this.props.dispatch(actions.fetchRentals());
+	async componentDidMount() {
+		await this.props.dispatch(actions.fetchRentals());
 	}
 	render() {
     return (
