@@ -41,9 +41,9 @@ class FakeDb {
     }
 
     pushRentalsToDb() {
-        this.rentals.forEach((rental) => {
+        this.rentals.forEach(async(rental) => {
             const newRental = new Rental(rental)
-            newRental.save()
+            await newRental.save()
         })
     }
     seedDb() {

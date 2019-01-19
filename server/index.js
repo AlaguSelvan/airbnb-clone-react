@@ -3,20 +3,20 @@ const mongoose = require('mongoose')
 const config = require('./config/dev')
 const Rental = require('./models/rental')
 const FakeDb = require('./fake-db')
-
+const chalk = require('chalk')
 const rentalRoutes = require('./routes/rentals')
-
-mongoose.connect(config.DB_URI).then(() => {
-    const fakeDb = new FakeDb()
-    fakeDb.seedDb()
-})
+const PORT = process.env.PORT || 3002
+const cors = require('cors')
 const app = express()
 
+app.use(cors())
+
+mongoose.connect(config.DB_URI).then(async() => {
+    const fakeDb = new FakeDb()
+    await fakeDb.seedDb()
+})
+
 app.use('/api/v1/rentals',  rentalRoutes)
-
-const chalk = require('chalk')
-
-const PORT = process.env.PORT || 3002
 
 app.listen(PORT, () => {
     console.log (chalk.blue(`server running on port ${PORT}`))
