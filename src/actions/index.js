@@ -24,9 +24,9 @@ const fetchRentalsSuccess = (rentals) => {
 
 export const fetchRentals = () => {
   return dispatch => {
-    axios.get('http://localhost:3002/api/v1/rentals').then(res => {
-      console.log(res.data)
-    }).then(rentals => {
+    axios.get('http://localhost:3002/api/v1/rentals').then(res => 
+      res.data
+    ).then(rentals => {
       console.log(rentals)
       dispatch(fetchRentalsSuccess(rentals))
   })

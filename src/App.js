@@ -16,11 +16,11 @@ class App extends Component {
       <Provider store={store}>
       <BrowserRouter>
   <div className='App'>
-        <Header />
+  <Header />
   <div className='container'>
   <Route exact path='/rentals' component ={RentalListing} />
   <Route exact path='/' render = {()=>{ return <Redirect to = 'rentals' /> }} />
-  <Route exact path='/rentals/:id' component ={RentalDetail} />
+  <Route exact path='/rentals/:id' component={RentalDetail} />
       </div>
       </div>
       </BrowserRouter>
