@@ -3,18 +3,18 @@ import { connect } from 'react-redux'
 import * as actions from 'actions'
 import RentalDetailInfo from './RentalDetailInfo'
 import { RentalMap } from './RentalMap'
-class RentalDetail extends React.PureComponent {
+class RentalDetail extends React.Component {
     constructor() {
-		super();
-
+		super()
 		this.state = {
-		
 		}
 	}
-componentDidMount() {
-    const rentalId = this.props.match.params.id
-    this.props.dispatch(actions.fetchRentalById(rentalId))
-}
+    async componentDidMount(){
+        const rentalId = await this.props.match.params.id
+        const fetchRentalId = await this.props.dispatch(actions.fetchRentalById(rentalId))
+        return fetchRentalId
+    }
+
     render() {
         const {rental} = this.props
         if(rental._id) {
