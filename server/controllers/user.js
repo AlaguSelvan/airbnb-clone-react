@@ -78,11 +78,15 @@ exports.authMiddleware = (req, res, next) => {
       }
     })
   } else {
-    return res.status(422).send({errors: [{tittle: 'Not authorized', detail: 'You need to login to get access'}]})
+    return notAuthorized(res)
   }
 }
 
 const parseToken = (token) =>{
   let splitToken = token.split(' ')[1]
   return jwt.verify(splitToken, SECRET)
+}
+
+const notAuthorized = (res) => {
+  return res.status(401).send({errors: [{tittle: 'Not authorized', detail: 'You need to login to get access'}]})
 }
