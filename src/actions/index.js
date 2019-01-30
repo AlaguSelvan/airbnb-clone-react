@@ -1,7 +1,7 @@
-import { FETCH_RENTALS, FETCH_RENTAL_BY_ID_INIT, FETCH_RENTAL_BY_ID_SUCCESS, FETCH_RENTALS_SUCCESS } from './types'
+import { LOGIN_SUCCESS, LOGIN_FAILURE, FETCH_RENTALS, FETCH_RENTAL_BY_ID_INIT, FETCH_RENTAL_BY_ID_SUCCESS, FETCH_RENTALS_SUCCESS } from './types'
 import axios from 'axios'
 
-
+// RENTALS ACTION --------------------
 const fetchRentalByIdInit = (rental) => {
     return {
         type: FETCH_RENTAL_BY_ID_INIT,
@@ -50,4 +50,49 @@ export const fetchRentalById = (rentalId) => {
       //   dispatch(fetchRentalByIdSuccess(rentals))
       // }).catch(err => console.log(error))
     }
+}
+
+// AUTH ACTIONS --------------------
+
+export const register = (userData) => {
+  return axios.post('http://localhost:3002/api/v1/users/register', { ...userData })
+  .then(
+    response => response.data, 
+    err => Promise.reject(err.response.data.errors)
+  )
+}
+
+// export const login = (userData) => {
+//   return axios.post('http://localhost:3002/api/v1/users/auth', { ...userData })
+//   .then(
+//     response => response.data, 
+//     err => Promise.reject(err.response.data.errors)
+//   )
+// }
+
+const loginSuccess = (token) => {
+  return {
+    type: LOGIN_SUCCESS,
+    token
+  }
+}
+
+const loginFailure = (errors) => {
+  return {
+    type: LOGIN_FAILURE,
+    errors
+  }
+}
+
+export const login = (userData) => {
+  return dispatch => {
+    return axios.post('http://localhost:3002/api/v1/users/auth', { ...userData })
+      .then(response => response.data)
+      .then(token => {localStorage.setItem('auth_token', token)
+        dispatch(loginSuccess(token))
+      })
+      .catch((response) => {
+        dispatch(loginFailure(response.data.errors))
+      })
+  }
 }

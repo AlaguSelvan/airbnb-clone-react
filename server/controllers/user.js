@@ -59,7 +59,6 @@ exports.register = async (req, res) => {
       return res.json({'registered': true})
     })
   })
-
 }
 
 exports.authMiddleware = (req, res, next) => {
