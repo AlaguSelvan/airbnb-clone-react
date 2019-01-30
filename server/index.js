@@ -17,7 +17,7 @@ app.use(bodyParser.json())
 
 mongoose.connect(config.DB_URI).then(async() => {
     const fakeDb = new FakeDb()
-    await fakeDb.seedDb()
+    // await fakeDb.seedDb()
 })
 
 app.use('/api/v1/rentals',  rentalRoutes)
