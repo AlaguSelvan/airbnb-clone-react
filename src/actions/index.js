@@ -36,8 +36,7 @@ export const fetchRentals = () => {
 
 export const fetchRentalById = (rentalId) => {
     return async function(dispatch) {
-      /* async await with try catch */
-      try{
+    try{
         let {data: rentalById} = await axios.get(`http://localhost:3002/api/v1/rentals/${rentalId}`)
         let rentals = await dispatch(fetchRentalByIdSuccess(rentalById))
         return rentals
