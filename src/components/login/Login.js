@@ -5,17 +5,15 @@ import * as actions from 'actions'
 import { Redirect } from 'react-router-dom'
 
 class Login extends React.Component{
-    // constructor() {
-    //     super()
-    //     this.state = {
-    //         errors: [],
-    //         redirect: false
-    //     }
-    //     this.loginUser = this.loginUser.bind(this)
-    // }
+    constructor() {
+        super()
+        this.state = {
+            errors: [],
+            redirect: false
+        }
+    }
 
-    loginUser(userData) {
-        console.log(userData)
+    loginUser = (userData) => {
         this.props.dispatch(actions.login(userData))
         // actions.login(userData).then(
             // logined => this.setState({ redirect: true }),

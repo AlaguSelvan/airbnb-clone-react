@@ -1,5 +1,6 @@
 import { LOGIN_SUCCESS, LOGIN_FAILURE, FETCH_RENTALS, FETCH_RENTAL_BY_ID_INIT, FETCH_RENTAL_BY_ID_SUCCESS, FETCH_RENTALS_SUCCESS } from './types'
 import axios from 'axios'
+import AuthService from '../services/auth-service'
 
 // RENTALS ACTION --------------------
 const fetchRentalByIdInit = (rental) => {
@@ -28,7 +29,6 @@ export const fetchRentals = () => {
     axios.get('http://localhost:3002/api/v1/rentals').then(res => 
       res.data
     ).then(rentals => {
-      console.log(rentals)
       dispatch(fetchRentalsSuccess(rentals))
   })
   }
@@ -40,10 +40,8 @@ export const fetchRentalById = (rentalId) => {
       try{
         let {data: rentalById} = await axios.get(`http://localhost:3002/api/v1/rentals/${rentalId}`)
         let rentals = await dispatch(fetchRentalByIdSuccess(rentalById))
-        console.log(rentals, 'dispatcher')
         return rentals
       } catch(err){
-        console.log(err)
       }
       /* promise */
       // axios.get(`http://localhost:3002/api/v1/rentals/${rentalId}`).then(res => res.data).then(rentals => {
@@ -72,8 +70,7 @@ export const register = (userData) => {
 
 const loginSuccess = (token) => {
   return {
-    type: LOGIN_SUCCESS,
-    token
+    type: LOGIN_SUCCESS
   }
 }
 
@@ -84,15 +81,24 @@ const loginFailure = (errors) => {
   }
 }
 
+export const checkAuthState = () => {
+  return dispatch => {
+    debugger;
+    if (AuthService.isAuthenticated){
+      dispatch(loginSuccess)
+    }
+  }
+}
+
 export const login = (userData) => {
   return dispatch => {
     return axios.post('http://localhost:3002/api/v1/users/auth', { ...userData })
-      .then(response => response.data)
-      .then(token => {localStorage.setItem('auth_token', token)
-        dispatch(loginSuccess(token))
-      })
-      .catch((response) => {
-        dispatch(loginFailure(response.data.errors))
-      })
+    .then(res => {return res.data})
+    .then(token => {localStorage.setItem('auth_token', token)
+      dispatch(loginSuccess())
+    }
+      )
+      .catch(({response}) => {
+      dispatch(loginFailure(response.data.errors))})
   }
 }
