@@ -8,7 +8,7 @@ class AuthService {
     }
 
     decode(token){
-        return jwt.decoded(token)
+        return jwt.decode(token)
     }
 
     getExpiration(token){

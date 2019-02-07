@@ -83,7 +83,7 @@ const loginFailure = (errors) => {
 export const checkAuthState = () => {
   return dispatch => {
     debugger;
-    if (AuthService.isAuthenticated){
+    if (AuthService.isAuthenticated()){
       dispatch(loginSuccess)
     }
   }

@@ -18,6 +18,7 @@ class App extends Component {
   }
   
   checkAuthState() {
+    console.log('authstate')
     debugger;
     store.dispatch(actions.checkAuthState())
   }
