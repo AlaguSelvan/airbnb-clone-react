@@ -10,6 +10,14 @@ class AuthService {
     decode(token){
         return jwt.decode(token)
     }
+    
+    saveToken(token){
+      localStorage.setItem('auth_token', token)
+    }
+
+    invalidateUser(){
+        localStorage.removeItem('auth_token')
+    }
 
     getExpiration(token){
         const exp = this.decode(token).exp
@@ -22,7 +30,6 @@ class AuthService {
 
     isAuthenticated(){
         const token = this.getToken()
-        debugger;
         return (token && this.isValid(token)) ? true : false
     }
 
