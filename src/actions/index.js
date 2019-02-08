@@ -1,6 +1,7 @@
-import { LOGIN_SUCCESS, LOGIN_FAILURE, FETCH_RENTALS, FETCH_RENTAL_BY_ID_INIT, FETCH_RENTAL_BY_ID_SUCCESS, FETCH_RENTALS_SUCCESS } from './types'
+import { LOGIN_SUCCESS, LOGIN_FAILURE, FETCH_RENTALS, FETCH_RENTAL_BY_ID_INIT, FETCH_RENTAL_BY_ID_SUCCESS, FETCH_RENTALS_SUCCESS, LOGOUT } from './types'
 import axios from 'axios'
-import AuthService from '../services/auth-service'
+import AuthService from 'services/auth-service'
+import AxiosService from 'services/axios-service'
 
 // RENTALS ACTION --------------------
 const fetchRentalByIdInit = (rental) => {
@@ -9,6 +10,9 @@ const fetchRentalByIdInit = (rental) => {
         rental
     }
 }
+
+const AxiosInstance = AxiosService.getInstance()
+
 
 const fetchRentalByIdSuccess = (rental) => {
     return {
@@ -26,7 +30,7 @@ const fetchRentalsSuccess = (rentals) => {
 
 export const fetchRentals = () => {
   return dispatch => {
-    axios.get('http://localhost:3002/api/v1/rentals').then(res => 
+    AxiosInstance.get('/rentals').then(res => 
       res.data
     ).then(rentals => {
       dispatch(fetchRentalsSuccess(rentals))
@@ -52,7 +56,7 @@ export const fetchRentalById = (rentalId) => {
 // AUTH ACTIONS --------------------
 
 export const register = (userData) => {
-  return axios.post('http://localhost:3002/api/v1/users/register', { ...userData })
+  return AxiosInstance.post('/users/register', { ...userData })
   .then(
     response => response.data, 
     err => Promise.reject(err.response.data.errors)
@@ -82,9 +86,8 @@ const loginFailure = (errors) => {
 
 export const checkAuthState = () => {
   return dispatch => {
-    debugger;
     if (AuthService.isAuthenticated()){
-      dispatch(loginSuccess)
+      dispatch(loginSuccess())
     }
   }
 }
@@ -93,11 +96,19 @@ export const login = (userData) => {
   return dispatch => {
     return axios.post('http://localhost:3002/api/v1/users/auth', { ...userData })
     .then(res => {return res.data})
-    .then(token => {localStorage.setItem('auth_token', token)
+      .then(token => {
+        AuthService.saveToken(token)
       dispatch(loginSuccess())
     }
       )
       .catch(({response}) => {
       dispatch(loginFailure(response.data.errors))})
+  }
+}
+
+export const logout = () => {
+  AuthService.invalidateUser()
+  return {
+    type: LOGOUT
   }
 }
