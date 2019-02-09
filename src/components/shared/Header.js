@@ -3,9 +3,6 @@ import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 class Header extends React.Component{
-  constructor(){
-    super()
-  }
   
   handleLogout = () => {
     this.props.logout()

@@ -11,10 +11,9 @@ export class Register extends React.Component{
           errors:[],
           redirect: false
         }
-    this.registerUser = this.registerUser.bind(this)
     }
-
-    registerUser(userData){
+// use class based arrow functions
+    registerUser = (userData) => {
         actions.register(userData).then(
           registered => this.setState({ redirect: true}),
           errors=>this.setState({errors})

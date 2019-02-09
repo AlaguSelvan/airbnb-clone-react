@@ -21,7 +21,7 @@ class Login extends React.Component{
         // )
     }
     render(){
-        const { isAuth, errors, redirect } = this.props.auth
+        const { isAuth, errors } = this.props.auth
     const { successRegister } = this.props.location.state || false
         if (isAuth) {
         return <Redirect to={{ pathname: '/rentals' }} />
