@@ -1,6 +1,5 @@
 import axios from 'axios'
 import authService from './auth-service'
-import Axios from 'axios';
 
 class AxiosService {
     axiosInstance = {}
