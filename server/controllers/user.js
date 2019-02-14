@@ -81,7 +81,7 @@ exports.authMiddleware = (req, res, next) => {
   }
 }
 
-const parseToken = (token) =>{
+const parseToken = (token) => {
   let splitToken = token.split(' ')[1]
   return jwt.verify(splitToken, SECRET)
 }
