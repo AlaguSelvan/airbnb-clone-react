@@ -56,7 +56,7 @@ export const fetchRentalById = (rentalId) => {
 // AUTH ACTIONS --------------------
 
 export const register = (userData) => {
-  return AxiosInstance.post('/users/register', { ...userData })
+  return AxiosInstance.post('/users/register', userData)
   .then(
     response => response.data, 
     err => Promise.reject(err.response.data.errors)
@@ -94,7 +94,7 @@ export const checkAuthState = () => {
 
 export const login = (userData) => {
   return dispatch => {
-    return axios.post('http://localhost:3002/api/v1/users/auth', { ...userData })
+    return axios.post('http://localhost:3002/api/v1/users/auth', userData)
     .then(res => {return res.data})
       .then(token => {
         AuthService.saveToken(token)
@@ -111,4 +111,10 @@ export const logout = () => {
   return {
     type: LOGOUT
   }
+}
+
+export const createBooking = (booking) => {
+  return AxiosInstance.post('/bookings', booking)
+        .then(res => res.data)
+        .catch(({response}) => Promise.reject(response.data.errors))
 }

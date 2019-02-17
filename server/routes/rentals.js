@@ -24,23 +24,14 @@ router.get('/:id', async(req, res) => {
   const rentalId = await req.params.id
 
   Rental.findById(rentalId)
-    .populate('user', 'username - _id')
+    .populate('user', 'username -_id')
     .populate('bookings', 'startAt endAt -_id')
-    .exec((err, foundRental)=>{
-      if (err) {
-        return  res.status(422).send({ errors: [{ title: 'Rental Error!', detail: 'Could Not Find Rental' }] })
+    .exec(function(err, foundRental) {
+      if (err || !foundRental) {
+        return  res.status(422).send({ errors: [{ title: 'Rental Error!', detail: 'Could Not Find Rental' }]});
       }
-      return res.json(foundRental)
+      return res.json(foundRental);
   })
-
-
-    Rental.findById(rentalId, (err, foundRental) => {
-        if (err) {
-            res.status(422).send({errors: [{title: 'Rental Error!', detail: 'Could Not Find Rental'}]})
-        } else {
-            return res.json(foundRental)
-        }
-    })
 })
 
 module.exports = router
