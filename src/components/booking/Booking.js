@@ -1,6 +1,7 @@
 import React from 'react';
 import DateRangePicker from 'react-bootstrap-daterangepicker'
 import {getRangeOfDates} from 'helpers'
+import { toast, ToastContainer} from 'react-toastify';
 import * as moment from 'moment'
 import {BookingModel} from './BookingModel'
 import * as actions from 'actions'
@@ -14,8 +15,7 @@ export class Booking extends React.Component {
             proposedBooking: {
                 startAt: '',
                 endAt: '',
-                guests: 0,
-                rental: {}
+                guests: 0
             },
             model: {
                 open: false
@@ -57,22 +57,22 @@ export class Booking extends React.Component {
         this.setState({
             proposedBooking: {
                 ...this.state.proposedBooking,
-            guests: parseInt(event.target.value)
+            guests: parseInt(event.target.value, 10)
           }
         })
     }
 
     cancelConfirmation = () => {
         this.setState({
-            ...this.state,
-            modal: {
-              open: false
+            model: {
+                open: false
             }
         })
     }
 
     addNewBookedOutDates(booking){
         const dateRange = getRangeOfDates(booking.startAt, booking.endAt)
+        console.log(dateRange)
         this.bookedOutDates.push(...dateRange)
     }
 
@@ -99,6 +99,7 @@ export class Booking extends React.Component {
             .then((booking) => {
                 this.addNewBookedOutDates(booking)
                 this.cancelConfirmation()
+                toast.success('Booking has been succesfuly created! Enjoy.')
             },
             (errors)=>{
              this.setState({errors})  
@@ -111,6 +112,7 @@ export class Booking extends React.Component {
         const { startAt, endAt, guests } = this.state.proposedBooking
         return (
             <div className='booking'>
+            <ToastContainer />
                 <h3 className='booking-price'>$ {rental.dailyRate} <span className='booking-per-night'>per night</span></h3>
                 <hr></hr>
                 <div className='form-group'>
@@ -140,6 +142,7 @@ export class Booking extends React.Component {
             confirmModel={this.reserveRental}
             booking={this.state.proposedBooking}
             errors={this.state.errors}
+            rentalPrice={rental.dailyRate}
             />
             </div>
         )
