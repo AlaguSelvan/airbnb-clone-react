@@ -1,10 +1,9 @@
 import React from 'react'
 
-export const BwmInput= ({
+export const BwmTextArea = ({
     input,
     label,
-    type,
-    symbol,
+    rows,
     className,
     meta: { touched, error, warning }
 }) => (
@@ -12,11 +11,7 @@ export const BwmInput= ({
         <div className="form-group">
             <label>{label}</label>
             <div className="input-group">
-                {symbol && 
-                <div className='input-group-prepend'>
-                <div className='input-group-text'>{symbol}</div>
-                </div>}
-                <input {...input} placeholder={label} type={type} className={className} />
+                <textarea {...input} placeholder={label} rows={rows} className={className}></textarea>
             </div>
             {touched &&
                 ((error && <div className="alert alert-danger">{error}</div>))}

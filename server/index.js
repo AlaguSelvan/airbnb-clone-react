@@ -17,7 +17,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 mongoose.connect(config.DB_URI).then(async() => {
-    const fakeDb = new FakeDb()
+    // const fakeDb = new FakeDb()
     // await fakeDb.seedDb()
 })
 
