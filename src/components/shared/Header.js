@@ -10,9 +10,7 @@ class Header extends React.Component{
     this.props.history.push('/rentals')
   }
 
-  renderAuthButtons = () => {
-    const {isAuth} = this.props.auth
-    // const {logout} = this.props
+  renderAuthButtons = (isAuth) => {
     if(isAuth){
       return <a className='nav-item nav-link clickable' onClick={this.handleLogout}>logout</a>
     }
@@ -24,7 +22,25 @@ class Header extends React.Component{
       )
   }
 
+  renderOwnerSection = (isAuth) => {
+    if(isAuth) {
+    return (
+    <div className="nav-item dropdown">
+      <a className="nav-link nav-item dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Owner Section
+            </a>
+      <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <Link className="dropdown-item" to="/rentals/new">Create Rental</Link>
+        <Link className="dropdown-item" to="#">Manage Rentals</Link>
+        <Link className="dropdown-item" to="#">Manage Bookings</Link>
+      </div>
+    </div>
+    )
+  }
+  }
+
   render(){
+    const {username, isAuth} = this.props.auth
     const {logout} = this.props
 return (
 <nav className='navbar navbar-dark navbar-expand-lg'>
@@ -36,7 +52,10 @@ return (
     </button>
     <div className='collapse navbar-collapse' id='navbarNavAltMarkup'>
       <div className='navbar-nav ml-auto'>
-        {this.renderAuthButtons()}
+      { isAuth && ( 
+      <a className='nav-item nav-link'>{this.props.auth.username}</a>)}
+          {this.renderOwnerSection(isAuth)}
+          {this.renderAuthButtons(isAuth)}
       </div>
     </div>
   </div>

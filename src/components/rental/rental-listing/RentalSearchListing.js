@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {RentalList}  from './RentalList'
 import { connect } from 'react-redux'
+import { toUpperCase } from 'helpers'
 
 import * as actions from 'actions'
 
@@ -32,14 +33,14 @@ class RentalSearchListing extends Component {
     }
     renderTitle = () => {
         console.log(this.props.rentals.data)
-        const { errors, data } = this.props.rentals
+        const { errors } = this.props.rentals
         const { searchedCity } = this.state
         let title = ''
         if (errors.length > 0) {
-            title = `No Rentals for ${searchedCity}`
+            title = `No Rentals for ${toUpperCase(searchedCity)}`
             title = errors[0].detail
         } else {
-            title = `Your Home in City of ${searchedCity}`
+            title = `Your Home in City of ${toUpperCase(searchedCity)}`
         }
         return (
             <h1 className="page-title">{title}</h1>
@@ -48,7 +49,7 @@ class RentalSearchListing extends Component {
 
 	render() {
 
-        const { searchedCity } = this.state
+        // const { searchedCity } = this.state
     return (
 			<section id ="rentalSearchListing">
             {this.renderTitle()}
