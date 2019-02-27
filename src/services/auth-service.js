@@ -27,6 +27,9 @@ class AuthService {
     isValid(token){
         return moment().isBefore(this.getExpiration(token))
     }
+    getUsername(){
+        return this.decode(this.getToken()).username
+    }
 
     isAuthenticated(){
         const token = this.getToken()

@@ -2,6 +2,7 @@ import { LOGIN_SUCCESS, FETCH_RENTALS_INIT, FETCH_RENTALS_FAIL, LOGIN_FAILURE, F
 import axios from 'axios'
 import AuthService from 'services/auth-service'
 import AxiosService from 'services/axios-service'
+import authService from '../services/auth-service';
 
 // RENTALS ACTION --------------------
 const fetchRentalByIdInit = (rental) => {
@@ -98,8 +99,10 @@ export const register = (userData) => {
 // }
 
 const loginSuccess = (token) => {
+  const username = authService.getUsername()
   return {
-    type: LOGIN_SUCCESS
+    type: LOGIN_SUCCESS,
+    username
   }
 }
 
