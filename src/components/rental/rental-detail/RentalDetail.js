@@ -4,7 +4,7 @@ import * as actions from 'actions'
 import RentalDetailInfo from './RentalDetailInfo'
 import { RentalMap } from './RentalMap'
 import { Booking } from 'components/booking/Booking'
-class RentalDetail extends React.Component {
+class RentalDetail extends React.PureComponent {
     constructor() {
 		super()
 		this.state = {
@@ -12,6 +12,7 @@ class RentalDetail extends React.Component {
 	}
     async componentDidMount(){
         const rentalId = await this.props.match.params.id
+        console.log(rentalId)
         const fetchRentalId = await this.props.dispatch(actions.fetchRentalById(rentalId))
         return fetchRentalId
     }
@@ -50,7 +51,8 @@ class RentalDetail extends React.Component {
         </div>
         </section>
             )
-        } else {
+        } 
+        if (!rental._id) {
             return (
                     <h1>Loading ...</h1>
             )

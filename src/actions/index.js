@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, FETCH_RENTALS_INIT, FETCH_RENTALS_FAIL, LOGIN_FAILURE, FETCH_RENTALS, FETCH_RENTAL_BY_ID_INIT, FETCH_RENTAL_BY_ID_SUCCESS, FETCH_RENTALS_SUCCESS, LOGOUT } from './types'
+import { FETCH_USER_RENTALS_INIT, FETCH_USER_RENTALS_SUCCESS, FETCH_USER_RENTALS_FAIL, FETCH_USER_BOOKINGS_INIT, FETCH_USER_BOOKINGS_SUCCESS, FETCH_USER_BOOKINGS_FAIL, LOGIN_SUCCESS, FETCH_RENTALS_INIT, FETCH_RENTALS_FAIL, LOGIN_FAILURE, FETCH_RENTALS, FETCH_RENTAL_BY_ID_INIT, FETCH_RENTAL_BY_ID_SUCCESS, FETCH_RENTALS_SUCCESS, LOGOUT } from './types'
 import axios from 'axios'
 import AuthService from 'services/auth-service'
 import AxiosService from 'services/axios-service'
@@ -148,3 +148,42 @@ export const createBooking = (booking) => {
         .catch(({response}) => Promise.reject(response.data.errors))
 }
 
+
+// Use Booking Actions
+
+export const fetchUserBookingsInit = () => {
+  return {
+    type: FETCH_USER_BOOKINGS_INIT
+  }
+}
+
+export const UserBookingSuccess = (userBookings) => {
+  console.log(userBookings)
+  // debugger;
+  return {
+    type: FETCH_USER_BOOKINGS_SUCCESS,
+    userBookings
+  }
+}
+export const UserBookingFail = (errors) => {
+  return {
+    type: FETCH_USER_BOOKINGS_FAIL,
+    errors
+  }
+}
+
+export const fetchUserBookings = (booking) => {
+  return dispatch => {
+    dispatch(fetchUserBookingsInit)
+    AxiosInstance
+              .get('/bookings/manage', booking)
+              .then(res => {
+                return res.data
+              }).then(userBookings => {
+               return dispatch(UserBookingSuccess(userBookings))
+              })
+      .catch(({ response }) => {
+        dispatch(UserBookingFail(response.data.errors))
+      })
+  }
+}
