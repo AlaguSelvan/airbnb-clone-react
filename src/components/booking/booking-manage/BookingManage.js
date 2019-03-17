@@ -5,9 +5,15 @@ import * as actions from 'actions'
 
 class BookingManage extends Component {
 
+<<<<<<< HEAD
 	componentDidMount() {
 		this.props.dispatch(actions.fetchUserBookings());
 	}
+=======
+    componentDidMount() {
+      this.props.dispatch(actions.fetchUserBookings())
+    }
+>>>>>>> d7cccf2f7004d5fc8ce2677f1305b4bed3ec1735
 
   render() {
       const { userBookings } = this.props
@@ -16,9 +22,12 @@ class BookingManage extends Component {
     <section id='userBookings'>
         <h1 className='page-title'>My Bookings</h1>
         <div className='row'>
+<<<<<<< HEAD
         { userBookings.data.map((booking, index) => <a key={index}>
         {booking.startAt} - {booking.endAt}
         </a>)}
+=======
+>>>>>>> d7cccf2f7004d5fc8ce2677f1305b4bed3ec1735
             <div className='col-md-4'>
                 <div className='card text-center'>
                     <div className='card-header'>
@@ -37,11 +46,17 @@ class BookingManage extends Component {
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
 				<div className='alert alert-warning'>
             You have no bookings created go to rentals section and book your place today.
 								<Link
 								//  style={{ 'margin-left': '10px' }} 
 								 className='btn btn-bwm' to='rentals index page'>Available Rental</Link>
+=======
+        <div class='alert alert-warning'>
+            You have no bookings created go to rentals section and book your place today.
+                <Link style={{ 'margin-left': '10px' }} class='btn btn-bwm' to='rentals index page'>Available Rental</Link>
+>>>>>>> d7cccf2f7004d5fc8ce2677f1305b4bed3ec1735
         </div>
     </section>
 
@@ -50,6 +65,10 @@ class BookingManage extends Component {
 }
 
 function mapStateToProps(state) {
+<<<<<<< HEAD
+=======
+    console.log(state)
+>>>>>>> d7cccf2f7004d5fc8ce2677f1305b4bed3ec1735
     return {
       userBookings: state.userBookings
     }

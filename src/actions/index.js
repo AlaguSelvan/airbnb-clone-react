@@ -149,13 +149,6 @@ export const createBooking = (booking) => {
 }
 
 
-export const fetchUserRentals = () => {
-  return AxiosInstance
-    .get('/rentals/manage')
-    .then(res => res.data,
-    err => Promise.reject(err.response.data.errors))
-}
-
 // Use Booking Actions
 
 export const fetchUserBookingsInit = () => {
@@ -164,7 +157,7 @@ export const fetchUserBookingsInit = () => {
   }
 }
 
-export const fetchUserBookingsSuccess = (userBookings) => {
+export const UserBookingSuccess = (userBookings) => {
   console.log(userBookings)
   // debugger;
   return {
@@ -172,35 +165,25 @@ export const fetchUserBookingsSuccess = (userBookings) => {
     userBookings
   }
 }
-export const fetchUserBookingsFail = (errors) => {
+export const UserBookingFail = (errors) => {
   return {
     type: FETCH_USER_BOOKINGS_FAIL,
     errors
   }
 }
 
-export const fetchUserRentalsInit= () => {
-  return {
-    type: FETCH_USER_RENTALS_INIT
-  }
-}
-
-// ND
-export const fetchUserRentalsSuccess = (userRentals) => {
-  return {
-    type: FETCH_USER_RENTALS_SUCCESS,
-    userRentals
-  }
-}
-
 export const fetchUserBookings = (booking) => {
   return dispatch => {
-    dispatch(fetchUserBookingsInit())
+    dispatch(fetchUserBookingsInit)
     AxiosInstance
               .get('/bookings/manage', booking)
-              .then(res =>  res.data)
-      .then(userBookings => dispatch(fetchUserBookingsSuccess(userBookings)))
-      .catch(() => dispatch(fetchUserBookingsFail('err')))
-
+              .then(res => {
+                return res.data
+              }).then(userBookings => {
+               return dispatch(UserBookingSuccess(userBookings))
+              })
+      .catch(({ response }) => {
+        dispatch(UserBookingFail(response.data.errors))
+      })
   }
 }
