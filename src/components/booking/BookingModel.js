@@ -10,8 +10,8 @@ export function BookingModel(props) {
       <h4 className='modal-title title'>Confirm Booking </h4>
       <p className='dates'>{booking.startAt}/{booking.endAt}</p>
       <div className='modal-body'>
-      <em>{booking.days}</em> nights /
-      <em>{rentalPrice}$</em> per Night
+      <em>{booking.days}</em> dars /
+      <em>{rentalPrice}$</em> per day
       <p>Guests: <em>{booking.guests}</em></p>
       <p>Price: <em>{booking.totalPrice}$ </em></p>
       <p>Do you confirm your booking for selected days?</p>

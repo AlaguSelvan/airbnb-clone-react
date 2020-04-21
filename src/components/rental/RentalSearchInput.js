@@ -25,11 +25,11 @@ class RentalSearchInput extends Component {
       <div className='form-inline my-2 my-lg-0'>
         <input
           onKeyPress={(event) => this.handleKeyPress(event)}
-        ref={this.searchInput}
-        className='form-control mr-sm-2 bwm-search' 
-        type='search' 
-        placeholder='Try New York' 
-        aria-label='Search'
+          ref={this.searchInput}
+          className='form-control mr-sm-2 bwm-search' 
+          type='search' 
+          placeholder='Try New York' 
+          aria-label='Search'
         >
         </input>
         <button

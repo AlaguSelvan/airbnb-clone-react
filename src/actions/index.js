@@ -177,13 +177,8 @@ export const fetchUserBookings = (booking) => {
     dispatch(fetchUserBookingsInit)
     AxiosInstance
               .get('/bookings/manage', booking)
-              .then(res => {
-                return res.data
-              }).then(userBookings => {
-               return dispatch(UserBookingSuccess(userBookings))
-              })
-      .catch(({ response }) => {
-        dispatch(UserBookingFail(response.data.errors))
-      })
+              .then(res => res.data)
+              .then(userBookings => dispatch(UserBookingSuccess(userBookings)))
+      .catch((_) =>  dispatch(UserBookingFail('err')))
   }
 }

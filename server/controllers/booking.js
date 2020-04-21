@@ -6,7 +6,7 @@ const moment = require('moment')
 
 exports.createBooking = (req, res) => {
 	const { startAt, endAt, totalPrice, guests, days, rental } = req.body;
-    const user = res.locals.user;
+	const user = res.locals.user;
 	const booking = new Booking({ startAt, endAt, totalPrice, guests, days })
 
 	Rental.findById(rental._id)
